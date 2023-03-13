@@ -131,7 +131,7 @@ trait HasChiselPlugin
 
 trait StdLibModule
   extends ScalaModule
-    with HasChiselPlugin {
+    with HasChisel {
   def chiselModule: ChiselModule
 
   override def moduleDeps = super.moduleDeps ++ Seq(chiselModule)
@@ -150,11 +150,18 @@ trait ChiselModule
   override def moduleDeps = super.moduleDeps ++ Seq(macrosModule, coreModule)
 }
 
+trait HasChisel
+  extends ScalaModule
+    with HasChiselPlugin
+    with HasMacroAnnotations {
+  def chiselModule: ChiselModule
+
+  def pluginModule = chiselModule.pluginModule
+}
+
 trait ChiselUnitTestModule
   extends TestModule
-    with ScalaModule
-    with HasChiselPlugin
-    with HasMacroAnnotations
+    with HasChisel
     with TestModule.ScalaTest {
   def chiselModule: ChiselModule
 
@@ -169,3 +176,4 @@ trait ChiselUnitTestModule
     scalacheckIvy
   )
 }
+

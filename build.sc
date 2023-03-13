@@ -211,6 +211,8 @@ class Stdlib(val crossScalaVersion: String)
   def chiselModule = chisel(crossScalaVersion)
 
   def pluginModule = plugin(crossScalaVersion)
+
+  def macroParadiseIvy: Option[Dep] = if (majorScalaVersion(crossScalaVersion) < 13) Some(v.macroParadise) else None
 }
 
 trait ChiselPublishModule extends PublishModule {
