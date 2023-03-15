@@ -1,22 +1,4 @@
-![Chisel 3](https://raw.githubusercontent.com/chipsalliance/chisel3/master/docs/src/images/chisel_logo.svg?sanitize=true)
-
----
-### CCC 2022
-CCC(Chisel Community Conference) is an annual gathering of Chisel community enthusiasts and technical exchange workshop. With the support of the Chisel development community and RISC-V International, this conference will bring together designers and developers with hands-on experience in Chisel from home and abroad to share cutting-edge results and experiences from both the open source community as well as industry.
-
-The recording of CCC 2022 has been uploaded: 
-1. [Constellation, a Open-source Chisel NoC Generator for SoCs - Jerry Zhao@UCB BAR](https://www.youtube.com/watch?v=8FGnu0Tq3Qk&list=PL02hojk7ZTSek-Zro6Zdj_nDlp6khGssJ&index=1)
-2. [The formal verification capabilities of chiseltest - Kevin Laeufer@UCB BAR](https://www.youtube.com/watch?v=-BUcTwE_URg&list=PL02hojk7ZTSek-Zro6Zdj_nDlp6khGssJ&index=2)
-3. [Chisel Breakdown 03 - Jack Koenig@SiFive](https://www.youtube.com/watch?v=4vgSrW7Cdkk&list=PL02hojk7ZTSek-Zro6Zdj_nDlp6khGssJ&index=3)
-4. [The Next Generation FIRRTL Compiler is Here! - Prithayan Barua&Hideto Ueno@SiFive](https://www.youtube.com/watch?v=V3h30s31qfk&list=PL02hojk7ZTSek-Zro6Zdj_nDlp6khGssJ&index=4)
-5. [Implementing RISC-V Scalar Cryptography/Bitmanip extensions in Chisel - Hongren Zheng@Tsinghua University+PLCT](https://www.youtube.com/watch?v=hXaZMQPRXo0&list=PL02hojk7ZTSek-Zro6Zdj_nDlp6khGssJ&index=5)
-6. [SCIRT: Bridging the Type System Gap for Circuit Generators - Ruikang Wang@Tsinghua University+PLCT](https://www.youtube.com/watch?v=fPl4eZHh1-M&list=PL02hojk7ZTSek-Zro6Zdj_nDlp6khGssJ&index=6)
-7. [ChiselDB: Mapping Hardware Data Structures to Database Tables for Efficient Data Analysis Jiawei Lin@ICT](https://www.youtube.com/watch?v=Df1l9h351BM&list=PL02hojk7ZTSek-Zro6Zdj_nDlp6khGssJ&index=7)
-8. [From Chisel to Chips in Fully Open-Source - Martin Schoeberl@DTU](https://www.youtube.com/watch?v=FenSOWKBbAw&list=PL02hojk7ZTSek-Zro6Zdj_nDlp6khGssJ&index=8)
-
-See you next year :)
-
----
+![Chisel](docs/src/images/chisel_logo.svg?sanitize=true)
 
 The **Constructing Hardware in a Scala Embedded Language** ([**Chisel**](https://www.chisel-lang.org)) is an open-source hardware description language (HDL) used to describe digital electronics and circuits at the register-transfer level that facilitates **advanced circuit generation and design reuse for both ASIC and FPGA digital logic designs**.
 
@@ -25,7 +7,8 @@ This generator methodology enables the creation of re-usable components and libr
 
 For more information on the benefits of Chisel see: ["What benefits does Chisel offer over classic Hardware Description Languages?"](https://stackoverflow.com/questions/53007782/what-benefits-does-chisel-offer-over-classic-hardware-description-languages)
 
-Chisel is powered by [FIRRTL (Flexible Intermediate Representation for RTL)](https://github.com/chipsalliance/firrtl), a hardware compiler framework that performs optimizations of Chisel-generated circuits and supports custom user-defined circuit transformations.
+Chisel is powered by [FIRRTL (Flexible Intermediate Representation for RTL)](https://github.com/chipsalliance/firrtl-spec),
+a hardware compiler framework implemented by [LLVM CIRCT](https://github.com/llvm/circt).
 
 * [What does Chisel code look like?](#what-does-chisel-code-look-like)
   * [LED blink](#led-blink)
@@ -52,12 +35,12 @@ Chisel is powered by [FIRRTL (Flexible Intermediate Representation for RTL)](htt
 
 ---
 
-[![Join the chat at https://gitter.im/freechipsproject/chisel3](https://badges.gitter.im/chipsalliance/chisel3.svg)](https://gitter.im/freechipsproject/chisel3?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-![CI](https://github.com/chipsalliance/chisel3/actions/workflows/test.yml/badge.svg)
-[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/chipsalliance/chisel3.svg?include_prereleases&sort=semver)](https://github.com/chipsalliance/chisel3/releases/latest)
-[![Scala version support](https://index.scala-lang.org/chipsalliance/chisel3/chisel3/latest-by-scala-version.svg?color=blue)](https://index.scala-lang.org/chipsalliance/chisel3/chisel3)
-[![Sonatype Snapshots](https://img.shields.io/nexus/s/edu.berkeley.cs/chisel3_2.13?server=https%3A%2F%2Foss.sonatype.org)](https://oss.sonatype.org/content/repositories/snapshots/edu/berkeley/cs/)
-[![Scaladoc](https://www.javadoc.io/badge/edu.berkeley.cs/chisel3_2.13.svg?color=blue&label=Scaladoc)](https://javadoc.io/doc/edu.berkeley.cs/chisel3_2.13/latest)
+[![Join the chat at https://gitter.im/chipsalliance/chisel](https://matrix.to/img/matrix-badge.svg)](https://gitter.im/chipsalliance/chisel?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+![CI](https://github.com/chipsalliance/chisel/actions/workflows/test.yml/badge.svg)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/chipsalliance/chisel.svg?include_prereleases&sort=semver)](https://github.com/chipsalliance/chisel/releases/latest)
+[![Scala version support](https://index.scala-lang.org/chipsalliance/chisel/chisel/latest-by-scala-version.svg?color=blue)](https://index.scala-lang.org/chipsalliance/chisel/chisel)
+[![Sonatype Snapshots](https://img.shields.io/nexus/s/org.chipsalliance/chisel_2.13?server=https%3A%2F%2Fs01.oss.sonatype.org)](https://oss.sonatype.org/content/repositories/snapshots/edu/berkeley/cs/)
+[![Scaladoc](https://www.javadoc.io/badge/org.chipsalliance/chisel_2.13.svg?color=blue&label=Scaladoc)](https://javadoc.io/doc/org.chipsalliance/chisel_2.13/latest)
 
 ## What does Chisel code look like?
 
@@ -244,10 +227,10 @@ These simulation-based verification tools are available for Chisel:
 ### Useful Resources
 
 * [**Cheat Sheet**](https://github.com/freechipsproject/chisel-cheatsheet/releases/latest/download/chisel_cheatsheet.pdf), a 2-page reference of the base Chisel syntax and libraries
-* [**ScalaDoc**](https://www.chisel-lang.org/api/latest/chisel3/index.html), a listing, description, and examples of the functionality exposed by Chisel
+* [**ScalaDoc**](https://www.chisel-lang.org/api/latest/index.html), a listing, description, and examples of the functionality exposed by Chisel
 * [**Gitter**](https://gitter.im/freechipsproject/chisel3), where you can ask questions or discuss anything Chisel
 * [**Website (3.6 and earlier)**](https://www.chisel-lang.org) ([source](https://github.com/freechipsproject/www.chisel-lang.org/))
-* [**Website (master)**](https://chipsalliance.github.io/chisel3) ([source](website)) (Note that this will replace the above after the 3.6 release)
+* [**Website (master)**](https://chipsalliance.github.io/chisel) ([source](website)) (Note that this will replace the above after the Chisel 5 release)
 * [**Scastie (3.5.3)**](https://scastie.scala-lang.org/O3LqeVH7SWyIxD7bZRH8hA)
 * [**asic-world**](http://www.asic-world.com/verilog/veritut.html) If you aren't familiar with verilog, this is a good tutorial.
 
