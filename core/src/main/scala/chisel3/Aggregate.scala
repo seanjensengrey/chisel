@@ -843,6 +843,7 @@ object VecInit extends SourceInfoDoc {
   * operations.
   */
 trait VecLike[T <: Data] extends IndexedSeq[T] with HasId with SourceInfoDoc {
+
   def apply(p: UInt): T
 
   // IndexedSeq has its own hashCode/equals that we must not use
@@ -996,7 +997,7 @@ abstract class Record extends Aggregate {
         }
         .mkString(",")
       throw new AliasedAggregateFieldException(
-        s"${this.className} contains aliased fields named ${dupNames}"
+        s"${this.typeName} contains aliased fields named ${dupNames}"
       )
     }
   }
@@ -1012,7 +1013,7 @@ abstract class Record extends Aggregate {
     for ((child, sameChild) <- this.elementsIterator.zip(this.elementsIterator)) {
       if (child != sameChild) {
         throwException(
-          s"${this.className} does not return the same objects when calling .elements multiple times. Did you make it a def by mistake?"
+          s"${this.typeName} does not return the same objects when calling .elements multiple times. Did you make it a def by mistake?"
         )
       }
       child.bind(ChildBinding(this), resolvedDirection)
@@ -1173,8 +1174,8 @@ abstract class Record extends Aggregate {
           case (name, data) =>
             s"$name=$data"
         }.mkString(", ")
-        s"$className($contents)"
-      case _ => stringAccessor(s"$className")
+        s"$typeName($contents)"
+      case _ => stringAccessor(s"$typeName")
     }
   }
 
@@ -1207,12 +1208,12 @@ abstract class Record extends Aggregate {
           case (name, data) =>
             List(PString(s"$name -> "), data.toPrintable, PString(", "))
         }.dropRight(1) // Remove trailing ", "
-    PString(s"$className(") + Printables(xs) + PString(")")
+    PString(s"$typeName(") + Printables(xs) + PString(")")
   }
 
   /** Default "pretty-print" implementation
     * Analogous to printing a Map
-    * Results in "`\$className(elt0.name -> elt0.value, ...)`"
+    * Results in "`\$typeName(elt0.name -> elt0.value, ...)`"
     */
   def toPrintable: Printable = toPrintableHelper(elements.toList)
 
@@ -1313,12 +1314,6 @@ abstract class Bundle extends Record {
     "The Chisel compiler plugin is now required for compiling Chisel code. " +
       "Please see https://github.com/chipsalliance/chisel3#build-your-own-chisel-projects."
   assert(_usingPlugin, mustUsePluginMsg)
-
-  override def className: String = super.className match {
-    case name if name.startsWith("$anon$") => "AnonymousBundle" // fallback for anonymous Bundle case
-    case ""                                => "AnonymousBundle" // ditto, but on other platforms
-    case name                              => name
-  }
 
   /** The collection of [[Data]]
     *

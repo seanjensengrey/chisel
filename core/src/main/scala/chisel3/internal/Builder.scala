@@ -109,12 +109,27 @@ private[chisel3] class IdGen {
 
 private[chisel3] trait HasId extends chisel3.InstanceId {
 
-  /** Name for Pretty Printing */
-  def className: String = try {
-    this.getClass.getSimpleName
-  } catch {
-    // This happens if your class is defined in an object and is anonymous
-    case e: java.lang.InternalError if e.getMessage == "Malformed class name" => this.getClass.toString
+  /** Chisel's standard way to derive a name from its class
+    *
+    * The name of a class approximates the behavior of the Java Reflection `getSimpleName` method
+    * https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html#getSimpleName-- with some modifications:
+    *
+    * - Anonymous classes will get an `"_Anon"` tag
+    * - Classes defined in functions will use their class name and not a numeric name
+    */
+  final def chiselClassName: String = { /* The default class name is derived from the Java reflection derived class name. */
+    val baseName = this.getClass.getName
+
+    /* A sequence of string filters applied to the name */
+    val filters: Seq[String => String] =
+      Seq(((a: String) => raw"\$$+anon".r.replaceAllIn(a, "_Anon")) // Merge the "$$anon" name with previous name
+      )
+
+    filters
+      .foldLeft(baseName) { case (str, filter) => filter(str) } // 1. Apply filters to baseName
+      .split("\\.|\\$") // 2. Split string at '.' or '$'
+      .filterNot(_.forall(_.isDigit)) // 3. Drop purely numeric names
+      .last // 4. Use the last name
   }
 
   // using nullable var for better memory usage
