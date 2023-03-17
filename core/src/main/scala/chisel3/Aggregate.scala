@@ -1180,14 +1180,6 @@ abstract class Record extends Aggregate {
 
   def elements: SeqMap[String, Data]
 
-  /** Name for Pretty Printing */
-  def className: String = try {
-    this.getClass.getSimpleName
-  } catch {
-    // This happens if your class is defined in an object and is anonymous
-    case e: java.lang.InternalError if e.getMessage == "Malformed class name" => this.getClass.toString
-  }
-
   private[chisel3] override def typeEquivalent(that: Data): Boolean = that match {
     case that: Record =>
       this.getClass == that.getClass &&
@@ -1322,15 +1314,10 @@ abstract class Bundle extends Record {
       "Please see https://github.com/chipsalliance/chisel3#build-your-own-chisel-projects."
   assert(_usingPlugin, mustUsePluginMsg)
 
-  override def className: String = try {
-    this.getClass.getSimpleName match {
-      case name if name.startsWith("$anon$") => "AnonymousBundle" // fallback for anonymous Bundle case
-      case ""                                => "AnonymousBundle" // ditto, but on other platforms
-      case name                              => name
-    }
-  } catch {
-    // This happens if you have nested objects which your class is defined in
-    case e: java.lang.InternalError if e.getMessage == "Malformed class name" => this.getClass.toString
+  override def className: String = super.className match {
+    case name if name.startsWith("$anon$") => "AnonymousBundle" // fallback for anonymous Bundle case
+    case ""                                => "AnonymousBundle" // ditto, but on other platforms
+    case name                              => name
   }
 
   /** The collection of [[Data]]

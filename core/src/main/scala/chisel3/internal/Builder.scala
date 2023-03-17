@@ -108,6 +108,15 @@ private[chisel3] class IdGen {
 }
 
 private[chisel3] trait HasId extends chisel3.InstanceId {
+
+  /** Name for Pretty Printing */
+  def className: String = try {
+    this.getClass.getSimpleName
+  } catch {
+    // This happens if your class is defined in an object and is anonymous
+    case e: java.lang.InternalError if e.getMessage == "Malformed class name" => this.getClass.toString
+  }
+
   // using nullable var for better memory usage
   private var _parentVar:       BaseModule = Builder.currentModule.getOrElse(null)
   private[chisel3] def _parent: Option[BaseModule] = Option(_parentVar)
